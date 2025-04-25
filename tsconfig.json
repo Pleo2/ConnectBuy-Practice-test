@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
       // ... otras opciones ...
-      "types": ["vite/client", "jest"], // Añadir "jest"
+      "types": [
+        // "vite/client", "jest"
+        ], // Añadir "jest"
       "lib": ["DOM", "DOM.Iterable", "ESNext"], // Asegúrate de que "DOM" está presente
       "jsx": "react-jsx",
       "esModuleInterop": true,
