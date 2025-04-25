@@ -1,7 +1,19 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
-}
+    "compilerOptions": {
+      // ... otras opciones ...
+      "types": ["vite/client", "jest"], // Añadir "jest"
+      "lib": ["DOM", "DOM.Iterable", "ESNext"], // Asegúrate de que "DOM" está presente
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
+      // ... más opciones ...
+      "baseUrl": ".", // Opcional: para alias
+      "paths": { // Opcional: para alias (debe coincidir con vite.config.ts y jest.config.cjs)
+        "@/*": ["src/*"]
+      }
+    },
+    "include": ["src", "jest.config.cjs", "vite.config.ts", "src/setupTests.ts"], // Incluir archivos de config y setup
+    "references": [{ "path": "./tsconfig.node.json" }]
+  }
