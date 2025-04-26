@@ -76,7 +76,7 @@ function App() {
                         specialPromo.title
                     );
                     triggerSpecialPromotion(specialPromo);
-                }, 2000); // 5 second delay
+                }, 3000); // 3 second delay
 
                 // Clean up the timer if the component unmounts before
                 return () => clearTimeout(timerId);
