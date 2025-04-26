@@ -40,7 +40,7 @@ interface PromoActions {
 }
 
 // --- Estado Inicial ---
-const initialState: PromoState = {
+export const _initialState: PromoState = {
   allPromotions: [],
   categories: [],
   stores: [],
@@ -48,13 +48,14 @@ const initialState: PromoState = {
     categoryId: null,
     storeId: null,
     maxDistanceKm: null,
-    userLatitude: 40.4168, // Ubicación por defecto: Madrid Centro (simulada)
+    userLatitude: 40, // Ubicación por defecto: Madrid Centro (simulada)
     userLongitude: -3.7038,
   },
   loadingStatus: 'idle',
   error: null,
   specialPromotionNotification: null,
 }
+export const initialState = _initialState
 
 // --- Helper para Calcular Distancia (Fórmula Haversine simplificada) ---
 // Devuelve distancia en KM
@@ -86,7 +87,7 @@ function deg2rad(deg: number): number {
 
 // --- Creación del Store ---
 export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
-  ...initialState,
+  ..._initialState,
 
   // --- Acciones ---
   fetchInitialData: async () => {
@@ -138,12 +139,8 @@ export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
   },
 
   clearFilters: () => {
-    set((state) => ({
-      filters: {
-        ...initialState.filters, // Resetear a los valores por defecto
-        userLatitude: state.filters.userLatitude, // Mantener la ubicación del usuario
-        userLongitude: state.filters.userLongitude,
-      },
+    set(() => ({
+      filters: { ..._initialState.filters }
     }))
   },
 

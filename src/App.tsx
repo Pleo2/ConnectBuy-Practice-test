@@ -4,6 +4,7 @@ import React, { useEffect, useMemo } from 'react'
 import { usePromoStore, selectFilteredPromotions, PromoState } from './store/promoStore'
 import { FilterPanel } from './components/FilterPanel'
 import { PromotionsList } from './components/PromotionsList'
+import { NotificationAlert } from './components/NotificationAlert'
 
 // MUI Imports (sin cambios)
 import CssBaseline from '@mui/material/CssBaseline'
@@ -23,6 +24,7 @@ function useAppPromoState() {
     const error = usePromoStore((state) => state.error);
     const allPromotions = usePromoStore((state) => state.allPromotions);
     const filters = usePromoStore((state) => state.filters);
+    const triggerSpecialPromotion = usePromoStore((state) => state.triggerSpecialPromotion);
 
     // Memoize filteredPromotions to avoid infinite render loop
     const filteredPromotions = useMemo(
@@ -35,6 +37,8 @@ function useAppPromoState() {
         loadingStatus,
         error,
         filteredPromotions,
+        allPromotions,
+        triggerSpecialPromotion,
         // hasActiveFilters
     };
 }
@@ -47,15 +51,37 @@ function App() {
         loadingStatus,
         error,
         filteredPromotions,
+        allPromotions,
+        triggerSpecialPromotion,
         // hasActiveFilters
     } = useAppPromoState()
 
     // --- Cargar datos iniciales (sin cambios) ---
     useEffect(() => {
         fetchInitialData()
-        console.log('App mounted');
+        // console.log('App mounted');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useEffect(() => {
+        // Solo intentar simular si los datos ya se cargaron correctamente
+        if (loadingStatus === 'succeeded' && allPromotions.length > 0) {
+            // Buscar la promoción especial en los datos cargados
+            const specialPromo = allPromotions.find(promo => promo.isSpecial)
+
+            if (specialPromo) {
+                // Simular un retraso de 5 segundos antes de que "llegue" la notificación
+                const timerId = setTimeout(() => {
+                    console.log('Simulating special promotion arrival:', specialPromo.title)
+                    triggerSpecialPromotion(specialPromo)
+                }, 5000) // 5 segundos de retraso
+
+                // Limpiar el temporizador si el componente se desmonta antes
+                return () => clearTimeout(timerId)
+            }
+        }
+        // Dependencias: se ejecuta cuando cambian el estado de carga o las promociones
+    }, [loadingStatus, allPromotions, triggerSpecialPromotion])
 
     return (
         <ThemeProvider theme={theme}>
@@ -80,6 +106,8 @@ function App() {
                     isLoading={loadingStatus === 'loading'}
                     error={error}
                 />
+
+                <NotificationAlert />
             </Container>
         </ThemeProvider>
     )
