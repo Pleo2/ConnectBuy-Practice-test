@@ -32,16 +32,9 @@ Este es un pequeño módulo construido con React y TypeScript que muestra una li
 
 ## Instalación
 
-1.  **Clona el repositorio:**
-
-    ```bash
-    git clone https://github.com/TU_USUARIO/TU_REPOSITORIO.git
-    cd TU_REPOSITORIO # O el nombre de tu carpeta
-    ```
-
 2.  **Instala las dependencias usando pnpm:**
     ```bash
-    pnpm install
+    pnpm install --force
     ```
     _Nota: Si no tienes pnpm instalado, sigue las [instrucciones oficiales](https://pnpm.io/installation)._
 
