@@ -115,8 +115,6 @@ A continuación se muestra una estructura más detallada del proyecto:
 
 - **src/api/**: Lógica de acceso a datos simulada o real.
 - **src/components/**: Componentes reutilizables de la UI.
-- **src/hooks/**: Custom hooks de React.
 - **src/store/**: Estado global (Zustand).
 - **src/types/**: Definiciones TypeScript.
-- **src/utils/**: Utilidades y helpers.
-- **tests/**: Pruebas unitarias y de integración.
+- **_tests/_**: Pruebas unitarias y de integración.
