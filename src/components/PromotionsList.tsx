@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import Skeleton from "@mui/material/Skeleton";
 
 interface PromotionsListProps {
     promotions: Promotion[];
@@ -11,22 +12,29 @@ interface PromotionsListProps {
     error?: string | null;
 }
 
-
 export function PromotionsList({
     promotions,
     isLoading = false,
     error = null
 }: PromotionsListProps) {
     if (isLoading) {
+        const skeletonCount = 8;
         return (
-            <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="200px"
-            >
-                <CircularProgress />
-            </Box>
+            <Grid container spacing={3} width={"100%"}>
+                {Array.from(new Array(skeletonCount)).map((_, index) => (
+                    <Grid
+                        key={index}
+                        size={{
+                            xs: 12, // 1
+                            sm: 6, // 2
+                            md: 4, // 3
+                            lg: 3 // 4
+                        }}
+                    >
+                        <PromotionCardSkeleton />
+                    </Grid>
+                ))}
+            </Grid>
         );
     }
 
@@ -57,12 +65,66 @@ export function PromotionsList({
     }
 
     return (
-        <Grid container spacing={3}>
-            {promotions.map((promo) => (
-                <Grid  key={promo.id} size={3}>
+        <Grid container spacing={3} width={"100%"}>
+            {promotions.map((promo, index) => (
+                <Grid
+                    key={promo.id + index}
+                    size={{
+                        xs: 12, // 1
+                        sm: 6, // 2
+                        md: 4, // 3
+                        lg: 3 // 4
+                    }}
+                >
                     <PromotionCard promotion={promo} />
                 </Grid>
             ))}
         </Grid>
+    );
+}
+
+function PromotionCardSkeleton() {
+    return (
+        <Box
+            sx={{
+                width: "100%",
+                height: 395,
+                boxShadow: 1,
+                borderRadius: 1,
+                overflow: "hidden",
+                opacity: 0.5
+            }}
+        >
+            <Skeleton
+                variant="rectangular"
+                height={140}
+                width="100%"
+                animation="wave"
+            />
+            <Box
+                sx={{
+                    pt: 1,
+                    height: "230px",
+                    paddingInline: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 0
+                }}
+            >
+                <Skeleton animation="wave" width="100%" />
+                <Skeleton width="80%" animation="wave" />
+                <Skeleton width="40%" animation="wave" />
+                <Skeleton
+                    sx={{
+                        mt: 1,
+                        mb: 1,
+                        pt: 0
+                    }}
+                    width="100%"
+                    height={200}
+                    animation="wave"
+                />
+            </Box>
+        </Box>
     );
 }

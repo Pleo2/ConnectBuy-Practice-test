@@ -50,7 +50,7 @@ const mockPromotions: Promotion[] = [
         store: mockStores[0],
         category: mockCategories[0],
         imageUrl:
-            "https://aws-obg-image-lb-5.tcl.com/content/dam/brandsite/product/tv/s/s5400a/id-image/40-43/40-3.png",
+            "https://nuweapp.com/media/catalog/product/1/2/12000010729_tv-65_ltk-k65b53g_4k_led_gtv_kenwood_2.jpg?auto=webp&format=pjpg&width=640&height=800&fit=cover",
         discountPercentage: 50,
         validUntil: "2024-12-31T23:59:59Z",
         isSpecial: false

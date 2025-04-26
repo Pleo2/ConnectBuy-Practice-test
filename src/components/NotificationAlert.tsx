@@ -1,12 +1,12 @@
 import { usePromoStore } from "../store/promoStore";
 import Snackbar from "@mui/material/Snackbar";
 import Alert, { AlertProps } from "@mui/material/Alert";
-import Slide, { SlideProps } from "@mui/material/Slide";
+// import Slide, { SlideProps } from "@mui/material/Slide";
 import { forwardRef } from "react";
 
-function SlideTransition(props: SlideProps) {
-    return <Slide {...props} direction="up" />;
-}
+// function SlideTransition(props: SlideProps) {
+//     return <Slide {...props} direction="up" />;
+// }
 
 const SnackbarAlert = forwardRef<HTMLDivElement, AlertProps>(
     function SnackbarAlert(props, ref) {
@@ -40,7 +40,6 @@ export function NotificationAlert() {
             autoHideDuration={6000} // Automatically hide after 6 seconds
             onClose={handleClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            TransitionComponent={SlideTransition}
         >
             <SnackbarAlert
                 key={notification?.id}

@@ -53,10 +53,11 @@ function PromotionCardComponent({ promotion }: PromotionCardProps) {
             sx={{
                 height: "100%",
                 display: "flex",
+                padding: 1,
                 flexDirection: "column",
-                opacity: isExpired ? 0.6 : 1, // Dim if expired
+                opacity: isExpired ? 0.5 : 1, // Dim if expired
                 border: isSpecial ? "2px solid" : "none", // Highlight if special
-                borderColor: isSpecial ? "primary.main" : "transparent"
+                borderColor: isSpecial ? "red" : "transparent"
             }}
         >
             <CardMedia

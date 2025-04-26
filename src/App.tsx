@@ -12,6 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Container } from "@mui/material";
 
 const theme = createTheme({});
 
@@ -75,7 +76,7 @@ function App() {
                         specialPromo.title
                     );
                     triggerSpecialPromotion(specialPromo);
-                }, 5000); // 5 second delay
+                }, 2000); // 5 second delay
 
                 // Clean up the timer if the component unmounts before
                 return () => clearTimeout(timerId);
@@ -87,16 +88,30 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <body
+            <Container
+                sx={{
+                    width: "100vw",
+                    height: "max-content",
+                    minHeight: "100dvh",
+
+                    paddingInline: {
+                        xs: 1,
+                        sm: 2,
+                        md: 4,
+                        lg: 6
+                    }
+                }}
                 style={{
-                    paddingInline: "10rem"
+                    width: "100vw",
+                    height: "max-content",
+                    minHeight: "100dvh"
                 }}
             >
                 <Box sx={{ textAlign: "center", mb: 4 }}>
-                    <Typography variant="h3" component="h1" gutterBottom>
+                    <Typography variant="h2" sx={{ fontWeight: 'bold', lineHeight: 1, marginTop: 12}} component="h1" gutterBottom>
                         Buscador de Promociones
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
+                    <Typography variant="h4" color="text.secondary">
                         Encuentra las mejores ofertas y descuentos cerca de ti
                     </Typography>
                 </Box>
@@ -112,7 +127,7 @@ function App() {
                 />
 
                 <NotificationAlert />
-            </body>
+            </Container>
         </ThemeProvider>
     );
 }
