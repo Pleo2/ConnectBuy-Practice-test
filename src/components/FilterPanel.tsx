@@ -10,9 +10,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 
-// --- Componente Principal ---
 export function FilterPanel() {
-    // Obtener datos y acciones del store de Zustand
     const categories = usePromoStore((state) => state.categories);
     const stores = usePromoStore((state) => state.stores);
     const filters = usePromoStore((state) => state.filters);
@@ -22,12 +20,6 @@ export function FilterPanel() {
         (state) => state.setProximityFilter
     );
     const clearFilters = usePromoStore((state) => state.clearFilters);
-
-    // --- ELIMINADOS ---
-    // const [distanceInput, setDistanceInput] = useState<string>(...)
-    // useEffect(() => { ... }, [filters.maxDistanceKm])
-
-    // --- Manejadores de Eventos ---
 
     function handleCategoryChange(event: SelectChangeEvent<string | null>) {
         const value = event.target.value;
@@ -39,23 +31,19 @@ export function FilterPanel() {
         setStoreFilter(value === "" ? null : value);
     }
 
-    // Modificado: Solo llama a la acción del store
     function handleDistanceChange(event: React.ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
         const distanceNum = parseInt(value, 10);
 
-        // Actualiza el store directamente. Si el input está vacío o no es numérico > 0, pasa null.
         setProximityFilter(
             filters.userLatitude!,
             filters.userLongitude!,
             !isNaN(distanceNum) && distanceNum > 0 ? distanceNum : null
         );
-        // Ya no hay setDistanceInput
     }
 
     function handleClearFilters() {
         clearFilters();
-        // Ya no hay estado local que limpiar
     }
 
     return (
@@ -72,7 +60,6 @@ export function FilterPanel() {
                 Filtrar Promociones
             </Typography>
             <Stack spacing={2}>
-                {/* Filtro de Categoría (sin cambios) */}
                 <FormControl fullWidth size="small">
                     <InputLabel id="category-filter-label">
                         Categoría
@@ -95,7 +82,7 @@ export function FilterPanel() {
                     </Select>
                 </FormControl>
 
-                {/* Filtro de Tienda (sin cambios) */}
+                {/* Store Filter (unchanged) */}
                 <FormControl fullWidth size="small">
                     <InputLabel id="store-filter-label">Tienda</InputLabel>
                     <Select
@@ -116,15 +103,14 @@ export function FilterPanel() {
                     </Select>
                 </FormControl>
 
-                {/* Filtro de Cercanía - Modificado */}
                 <TextField
                     fullWidth
                     size="small"
                     label="Distancia Máxima (km)"
                     type="number"
-                    // ¡Cambio Clave! Vincular value directamente al store
+                    // Key Change! Bind value directly to the store
                     value={filters.maxDistanceKm?.toString() ?? ""}
-                    onChange={handleDistanceChange} // El handler solo actualiza el store
+                    onChange={handleDistanceChange}
                     InputProps={{
                         inputProps: {
                             min: 0
@@ -139,7 +125,6 @@ export function FilterPanel() {
                     }
                 />
 
-                {/* Botón Limpiar Filtros (sin cambios en el botón mismo) */}
                 <Button
                     variant="outlined"
                     color="secondary"

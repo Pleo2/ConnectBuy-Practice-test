@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/116</span>
+                <span class='fraction'>0/120</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/116</span>
+                <span class='fraction'>0/120</span>
             </div>
         
             
@@ -179,7 +179,11 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -295,37 +299,43 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >// src/App.tsx</span></span></span>
-<span class="cstat-no" title="statement not covered" >import React, { useEffect, useMemo } from 'react'</span>
-<span class="cstat-no" title="statement not covered" >// Importa el store y el selector por separado</span>
-<span class="cstat-no" title="statement not covered" >import { usePromoStore, selectFilteredPromotions, PromoState } from './store/promoStore'</span>
-<span class="cstat-no" title="statement not covered" >import { FilterPanel } from './components/FilterPanel'</span>
-<span class="cstat-no" title="statement not covered" >import { PromotionsList } from './components/PromotionsList'</span>
-<span class="cstat-no" title="statement not covered" >import { NotificationAlert } from './components/NotificationAlert'</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { useEffect, useMemo } from "react";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import {</span>
+<span class="cstat-no" title="statement not covered" >    usePromoStore,</span>
+<span class="cstat-no" title="statement not covered" >    selectFilteredPromotions,</span>
+<span class="cstat-no" title="statement not covered" >    PromoState</span>
+<span class="cstat-no" title="statement not covered" >} from "./store/promoStore";</span>
+<span class="cstat-no" title="statement not covered" >import { FilterPanel } from "./components/FilterPanel";</span>
+<span class="cstat-no" title="statement not covered" >import { PromotionsList } from "./components/PromotionsList";</span>
+<span class="cstat-no" title="statement not covered" >import { NotificationAlert } from "./components/NotificationAlert";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >// MUI Imports (sin cambios)</span>
-<span class="cstat-no" title="statement not covered" >import CssBaseline from '@mui/material/CssBaseline'</span>
-<span class="cstat-no" title="statement not covered" >import Container from '@mui/material/Container'</span>
-<span class="cstat-no" title="statement not covered" >import Typography from '@mui/material/Typography'</span>
-<span class="cstat-no" title="statement not covered" >import Box from '@mui/material/Box'</span>
-<span class="cstat-no" title="statement not covered" >import { ThemeProvider, createTheme } from '@mui/material/styles'</span>
+<span class="cstat-no" title="statement not covered" >import CssBaseline from "@mui/material/CssBaseline";</span>
+<span class="cstat-no" title="statement not covered" >import Typography from "@mui/material/Typography";</span>
+<span class="cstat-no" title="statement not covered" >import Box from "@mui/material/Box";</span>
+<span class="cstat-no" title="statement not covered" >import { ThemeProvider, createTheme } from "@mui/material/styles";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >// Theme (sin cambios)</span>
-<span class="cstat-no" title="statement not covered" >const theme = createTheme({})</span>
+<span class="cstat-no" title="statement not covered" >const theme = createTheme({});</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >// --- Hook Personalizado para seleccionar el estado de la App ---</span>
-<span class="cstat-no" title="statement not covered" >// Separar selectores para evitar renders innecesarios y loops</span>
+<span class="cstat-no" title="statement not covered" >// --- Custom Hook to select App state ---</span>
+<span class="cstat-no" title="statement not covered" >// Separate selectors to avoid unnecessary renders and loops</span>
 <span class="cstat-no" title="statement not covered" >function useAppPromoState() {</span>
 <span class="cstat-no" title="statement not covered" >    const fetchInitialData = usePromoStore((state) =&gt; state.fetchInitialData);</span>
 <span class="cstat-no" title="statement not covered" >    const loadingStatus = usePromoStore((state) =&gt; state.loadingStatus);</span>
 <span class="cstat-no" title="statement not covered" >    const error = usePromoStore((state) =&gt; state.error);</span>
 <span class="cstat-no" title="statement not covered" >    const allPromotions = usePromoStore((state) =&gt; state.allPromotions);</span>
 <span class="cstat-no" title="statement not covered" >    const filters = usePromoStore((state) =&gt; state.filters);</span>
-<span class="cstat-no" title="statement not covered" >    const triggerSpecialPromotion = usePromoStore((state) =&gt; state.triggerSpecialPromotion);</span>
+<span class="cstat-no" title="statement not covered" >    const triggerSpecialPromotion = usePromoStore(</span>
+<span class="cstat-no" title="statement not covered" >        (state) =&gt; state.triggerSpecialPromotion</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    // Memoize filteredPromotions to avoid infinite render loop</span>
 <span class="cstat-no" title="statement not covered" >    const filteredPromotions = useMemo(</span>
-<span class="cstat-no" title="statement not covered" >        () =&gt; selectFilteredPromotions({ allPromotions, filters } as PromoState),</span>
+<span class="cstat-no" title="statement not covered" >        () =&gt;</span>
+<span class="cstat-no" title="statement not covered" >            selectFilteredPromotions({ allPromotions, filters } as PromoState),</span>
 <span class="cstat-no" title="statement not covered" >        [allPromotions, filters]</span>
 <span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -335,82 +345,84 @@
 <span class="cstat-no" title="statement not covered" >        error,</span>
 <span class="cstat-no" title="statement not covered" >        filteredPromotions,</span>
 <span class="cstat-no" title="statement not covered" >        allPromotions,</span>
-<span class="cstat-no" title="statement not covered" >        triggerSpecialPromotion,</span>
+<span class="cstat-no" title="statement not covered" >        triggerSpecialPromotion</span>
 <span class="cstat-no" title="statement not covered" >        // hasActiveFilters</span>
 <span class="cstat-no" title="statement not covered" >    };</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >// --- Componente Principal App ---</span>
 <span class="cstat-no" title="statement not covered" >function App() {</span>
-<span class="cstat-no" title="statement not covered" >    // --- Usar el Hook Personalizado ---</span>
 <span class="cstat-no" title="statement not covered" >    const {</span>
 <span class="cstat-no" title="statement not covered" >        fetchInitialData,</span>
 <span class="cstat-no" title="statement not covered" >        loadingStatus,</span>
 <span class="cstat-no" title="statement not covered" >        error,</span>
 <span class="cstat-no" title="statement not covered" >        filteredPromotions,</span>
 <span class="cstat-no" title="statement not covered" >        allPromotions,</span>
-<span class="cstat-no" title="statement not covered" >        triggerSpecialPromotion,</span>
+<span class="cstat-no" title="statement not covered" >        triggerSpecialPromotion</span>
 <span class="cstat-no" title="statement not covered" >        // hasActiveFilters</span>
-<span class="cstat-no" title="statement not covered" >    } = useAppPromoState()</span>
+<span class="cstat-no" title="statement not covered" >    } = useAppPromoState();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    // --- Cargar datos iniciales (sin cambios) ---</span>
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        fetchInitialData()</span>
+<span class="cstat-no" title="statement not covered" >        fetchInitialData();</span>
 <span class="cstat-no" title="statement not covered" >        // console.log('App mounted');</span>
-<span class="cstat-no" title="statement not covered" >        // eslint-disable-next-line react-hooks/exhaustive-deps</span>
-<span class="cstat-no" title="statement not covered" >    }, [])</span>
+<span class="cstat-no" title="statement not covered" >    }, []);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        // Solo intentar simular si los datos ya se cargaron correctamente</span>
-<span class="cstat-no" title="statement not covered" >        if (loadingStatus === 'succeeded' &amp;&amp; allPromotions.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >            // Buscar la promoción especial en los datos cargados</span>
-<span class="cstat-no" title="statement not covered" >            const specialPromo = allPromotions.find(promo =&gt; promo.isSpecial)</span>
+<span class="cstat-no" title="statement not covered" >        // Only attempt to simulate if data has loaded successfully</span>
+<span class="cstat-no" title="statement not covered" >        if (loadingStatus === "succeeded" &amp;&amp; allPromotions.length &gt; 0) {</span>
+<span class="cstat-no" title="statement not covered" >            // Find the special promotion in the loaded data</span>
+<span class="cstat-no" title="statement not covered" >            const specialPromo = allPromotions.find((promo) =&gt; promo.isSpecial);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >            if (specialPromo) {</span>
-<span class="cstat-no" title="statement not covered" >                // Simular un retraso de 5 segundos antes de que "llegue" la notificación</span>
+<span class="cstat-no" title="statement not covered" >                // Simulate a 5 second delay before the notification "arrives"</span>
 <span class="cstat-no" title="statement not covered" >                const timerId = setTimeout(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                    console.log('Simulating special promotion arrival:', specialPromo.title)</span>
-<span class="cstat-no" title="statement not covered" >                    triggerSpecialPromotion(specialPromo)</span>
-<span class="cstat-no" title="statement not covered" >                }, 5000) // 5 segundos de retraso</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(</span>
+<span class="cstat-no" title="statement not covered" >                        "Simulating special promotion arrival:",</span>
+<span class="cstat-no" title="statement not covered" >                        specialPromo.title</span>
+<span class="cstat-no" title="statement not covered" >                    );</span>
+<span class="cstat-no" title="statement not covered" >                    triggerSpecialPromotion(specialPromo);</span>
+<span class="cstat-no" title="statement not covered" >                }, 5000); // 5 second delay</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                // Limpiar el temporizador si el componente se desmonta antes</span>
-<span class="cstat-no" title="statement not covered" >                return () =&gt; clearTimeout(timerId)</span>
+<span class="cstat-no" title="statement not covered" >                // Clean up the timer if the component unmounts before</span>
+<span class="cstat-no" title="statement not covered" >                return () =&gt; clearTimeout(timerId);</span>
 <span class="cstat-no" title="statement not covered" >            }</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >        // Dependencias: se ejecuta cuando cambian el estado de carga o las promociones</span>
-<span class="cstat-no" title="statement not covered" >    }, [loadingStatus, allPromotions, triggerSpecialPromotion])</span>
+<span class="cstat-no" title="statement not covered" >        // Dependencies: runs when loading status or promotions change</span>
+<span class="cstat-no" title="statement not covered" >    }, [loadingStatus, allPromotions, triggerSpecialPromotion]);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;ThemeProvider theme={theme}&gt;</span>
 <span class="cstat-no" title="statement not covered" >            &lt;CssBaseline /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;Container maxWidth="lg" sx={{ py: 4, }}&gt;</span>
-<span class="cstat-no" title="statement not covered" >                &lt;Box sx={{ textAlign: 'center', mb: 4 }}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;body</span>
+<span class="cstat-no" title="statement not covered" >                style={{</span>
+<span class="cstat-no" title="statement not covered" >                    paddingInline: "10rem"</span>
+<span class="cstat-no" title="statement not covered" >                }}</span>
+<span class="cstat-no" title="statement not covered" >            &gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;Box sx={{ textAlign: "center", mb: 4 }}&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;Typography variant="h3" component="h1" gutterBottom&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        Promo Finder</span>
+<span class="cstat-no" title="statement not covered" >                        Buscador de Promociones</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/Typography&gt;</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;Typography variant="subtitle1" color="text.secondary"&gt;</span>
-<span class="cstat-no" title="statement not covered" >                        Encuentra las mejores ofertas cerca de ti</span>
+<span class="cstat-no" title="statement not covered" >                        Encuentra las mejores ofertas y descuentos cerca de ti</span>
 <span class="cstat-no" title="statement not covered" >                    &lt;/Typography&gt;</span>
 <span class="cstat-no" title="statement not covered" >                &lt;/Box&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                {/* FilterPanel ahora podría recibir 'hasActiveFilters' si es necesario */}</span>
-<span class="cstat-no" title="statement not covered" >                {/* o calcularlo internamente */}</span>
+<span class="cstat-no" title="statement not covered" >                {/* FilterPanel could now receive 'hasActiveFilters' if needed */}</span>
+<span class="cstat-no" title="statement not covered" >                {/* or calculate it internally */}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;FilterPanel /&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >                {/* PromotionsList (sin cambios aquí) */}</span>
 <span class="cstat-no" title="statement not covered" >                &lt;PromotionsList</span>
 <span class="cstat-no" title="statement not covered" >                    promotions={filteredPromotions}</span>
-<span class="cstat-no" title="statement not covered" >                    isLoading={loadingStatus === 'loading'}</span>
+<span class="cstat-no" title="statement not covered" >                    isLoading={loadingStatus === "loading"}</span>
 <span class="cstat-no" title="statement not covered" >                    error={error}</span>
 <span class="cstat-no" title="statement not covered" >                /&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >                &lt;NotificationAlert /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/Container&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/body&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/ThemeProvider&gt;</span>
-<span class="cstat-no" title="statement not covered" >    )</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default App</span>
+<span class="cstat-no" title="statement not covered" >export default App;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -418,7 +430,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-26T04:32:40.614Z
+                at 2025-04-26T17:22:42.380Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -1,38 +1,35 @@
 import { Promotion } from "../types";
-import { PromotionCard } from "./PromotionCard"; // Importamos nuestro componente de tarjeta
-import Grid from "@mui/material/Grid"; // <-- Cambiado aquí
+import { PromotionCard } from "./PromotionCard";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress"; // Para indicar carga
+import CircularProgress from "@mui/material/CircularProgress";
 
-// --- Interfaz para las Props ---
 interface PromotionsListProps {
     promotions: Promotion[];
-    isLoading?: boolean; // Opcional: para mostrar indicador de carga
-    error?: string | null; // Opcional: para mostrar mensaje de error
+    isLoading?: boolean;
+    error?: string | null;
 }
 
-// --- Componente Principal ---
+
 export function PromotionsList({
     promotions,
-    isLoading = false, // Valor por defecto
-    error = null // Valor por defecto
+    isLoading = false,
+    error = null
 }: PromotionsListProps) {
-    // Mostrar indicador de carga si isLoading es true
     if (isLoading) {
         return (
             <Box
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                minHeight="200px" // Darle algo de altura
+                minHeight="200px"
             >
                 <CircularProgress />
             </Box>
         );
     }
 
-    // Mostrar mensaje de error si existe
     if (error) {
         return (
             <Box textAlign="center" my={4}>
@@ -42,12 +39,10 @@ export function PromotionsList({
                 <Typography color="error" variant="body1">
                     {error}
                 </Typography>
-                {/* Aquí podrías añadir un botón para reintentar, si la lógica lo permite */}
             </Box>
         );
     }
 
-    // Mostrar mensaje si no hay promociones (después de cargar y sin errores)
     if (promotions.length === 0) {
         return (
             <Box textAlign="center" my={4}>
@@ -61,7 +56,6 @@ export function PromotionsList({
         );
     }
 
-    // Renderizar la cuadrícula de promociones
     return (
         <Grid container spacing={3}>
             {promotions.map((promo) => (

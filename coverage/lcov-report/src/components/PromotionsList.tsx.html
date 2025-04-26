@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/74</span>
+                <span class='fraction'>68/68</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/74</span>
+                <span class='fraction'>68/68</span>
             </div>
         
             
@@ -131,13 +131,7 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -151,8 +145,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -171,7 +163,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -184,8 +175,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -199,7 +188,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -212,40 +200,37 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Promotion } from "../types";
-import { PromotionCard } from "./PromotionCard"; // Importamos nuestro componente de tarjeta
-import Grid from "@mui/material/Grid"; // &lt;-- Cambiado aquí
+import { PromotionCard } from "./PromotionCard";
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import CircularProgress from "@mui/material/CircularProgress"; // Para indicar carga
+import CircularProgress from "@mui/material/CircularProgress";
 &nbsp;
-// --- Interfaz para las Props ---
 interface PromotionsListProps {
     promotions: Promotion[];
-    isLoading?: boolean; // Opcional: para mostrar indicador de carga
-    error?: string | null; // Opcional: para mostrar mensaje de error
+    isLoading?: boolean;
+    error?: string | null;
 }
 &nbsp;
-// --- Componente Principal ---
+&nbsp;
 export function PromotionsList({
     promotions,
-    isLoading = false, // Valor por defecto
-    error = null // Valor por defecto
+    isLoading = false,
+    error = null
 }: PromotionsListProps) {
-    // Mostrar indicador de carga si isLoading es true
     if (isLoading) {
         return (
             &lt;Box
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                minHeight="200px" // Darle algo de altura
+                minHeight="200px"
             &gt;
                 &lt;CircularProgress /&gt;
             &lt;/Box&gt;
         );
     }
 &nbsp;
-    // Mostrar mensaje de error si existe
     if (error) {
         return (
             &lt;Box textAlign="center" my={4}&gt;
@@ -255,12 +240,10 @@ export function PromotionsList({
                 &lt;Typography color="error" variant="body1"&gt;
                     {error}
                 &lt;/Typography&gt;
-                {/* Aquí podrías añadir un botón para reintentar, si la lógica lo permite */}
             &lt;/Box&gt;
         );
     }
 &nbsp;
-    // Mostrar mensaje si no hay promociones (después de cargar y sin errores)
     if (promotions.length === 0) {
         return (
             &lt;Box textAlign="center" my={4}&gt;
@@ -274,7 +257,6 @@ export function PromotionsList({
         );
     }
 &nbsp;
-    // Renderizar la cuadrícula de promociones
     return (
         &lt;Grid container spacing={3}&gt;
             {promotions.map((promo) =&gt; (
@@ -292,7 +274,7 @@ export function PromotionsList({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-26T04:32:40.614Z
+                at 2025-04-26T17:22:42.380Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

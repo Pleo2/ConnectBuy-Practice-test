@@ -2,16 +2,16 @@ import { create } from "zustand";
 import { Promotion, Category, Store } from "../types";
 import { fetchPromotions, fetchCategories, fetchStores } from "../services/api";
 
-// --- Tipos para los Filtros ---
+// --- Types for Filters ---
 export interface Filters {
-    categoryId: string | null; // null o '' significa sin filtro
+    categoryId: string | null; // null or '' means no filter
     storeId: string | null;
-    maxDistanceKm: number | null; // null significa sin filtro de distancia
-    userLatitude: number | null; // Latitud simulada del usuario
-    userLongitude: number | null; // Longitud simulada del usuario
+    maxDistanceKm: number | null; // null means no distance filter
+    userLatitude: number | null; // Simulated user latitude
+    userLongitude: number | null; // Simulated user longitude
 }
 
-// --- Interfaz del Estado ---
+// --- State Interface ---
 export interface PromoState {
     allPromotions: Promotion[];
     categories: Category[];
@@ -19,27 +19,27 @@ export interface PromoState {
     filters: Filters;
     loadingStatus: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
-    specialPromotionNotification: Promotion | null; // Para la notificación
+    specialPromotionNotification: Promotion | null; // For notification
 }
 
-// --- Interfaz de las Acciones ---
+// --- Actions Interface ---
 interface PromoActions {
     fetchInitialData: () => Promise<void>;
     setCategoryFilter: (categoryId: string | null) => void;
     setStoreFilter: (storeId: string | null) => void;
-    // Simularemos la ubicación del usuario y un radio
+    // We will simulate user location and a radius
     setProximityFilter: (
         userLat: number,
         userLon: number,
         maxDistance: number | null
     ) => void;
     clearFilters: () => void;
-    // Simulación de evento externo (WebSocket/Reverb)
+    // Simulation of external event (WebSocket/Reverb)
     triggerSpecialPromotion: (promotion: Promotion) => void;
     clearSpecialPromotionNotification: () => void;
 }
 
-// --- Estado Inicial ---
+// --- Initial State ---
 export const _initialState: PromoState = {
     allPromotions: [],
     categories: [],
@@ -48,7 +48,7 @@ export const _initialState: PromoState = {
         categoryId: null,
         storeId: null,
         maxDistanceKm: null,
-        userLatitude: 40.4168, // Ubicación por defecto: Madrid Centro (simulada)
+        userLatitude: 40.4168, // Default location: Madrid Center (simulated)
         userLongitude: -3.7038
     },
     loadingStatus: "idle",
@@ -57,17 +57,17 @@ export const _initialState: PromoState = {
 };
 export const initialState = _initialState;
 
-// --- Helper para Calcular Distancia (Fórmula Haversine simplificada) ---
-// Devuelve distancia en KM
+// --- Helper to Calculate Distance (Simplified Haversine Formula) ---
+// Returns distance in KM
 function getDistanceKm(
     lat1: number,
     lon1: number,
     lat2: number,
     lon2: number
 ): number {
-    if (!lat1 || !lon1 || !lat2 || !lon2) return Infinity; // No se puede calcular
+    if (!lat1 || !lon1 || !lat2 || !lon2) return Infinity; // Cannot calculate
 
-    const R = 6371; // Radio de la Tierra en km
+    const R = 6371; // Earth radius in km
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
     const a =
@@ -77,7 +77,7 @@ function getDistanceKm(
             Math.sin(dLon / 2) *
             Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    const d = R * c; // Distancia en km
+    const d = R * c; // Distance in km
     return d;
 }
 
@@ -85,16 +85,16 @@ function deg2rad(deg: number): number {
     return deg * (Math.PI / 180);
 }
 
-// --- Creación del Store ---
+// --- Store Creation ---
 export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
     ..._initialState,
 
-    // --- Acciones ---
+    // --- Actions ---
     fetchInitialData: async () => {
-        if (get().loadingStatus === "loading") return; // Evitar llamadas concurrentes
+        if (get().loadingStatus === "loading") return; // Avoid concurrent calls
         set({ loadingStatus: "loading", error: null });
         try {
-            // Ejecutar llamadas en paralelo para eficiencia
+            // Run calls in parallel for efficiency
             const [promotions, categories, stores] = await Promise.all([
                 fetchPromotions(),
                 fetchCategories(),
@@ -110,7 +110,7 @@ export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
             console.error("Failed to fetch initial data:", err);
             set({
                 loadingStatus: "failed",
-                error: "No se pudieron cargar los datos iniciales."
+                error: "No se pudieron cargar los datos iniciales.",
             });
         }
     },
@@ -145,7 +145,7 @@ export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
     },
 
     triggerSpecialPromotion: (promotion) => {
-        // Solo activar si es realmente especial y no está ya notificada
+        // Only trigger if it is really special and not already notified
         if (
             promotion.isSpecial &&
             get().specialPromotionNotification?.id !== promotion.id
@@ -159,26 +159,26 @@ export const usePromoStore = create<PromoState & PromoActions>((set, get) => ({
     }
 }));
 
-// --- Selectores (Funciones fuera del create) ---
-// Selector para obtener las promociones filtradas
-// Esto se recalculará cada vez que cambie el estado relevante (promotions o filters)
+// --- Selectors (Functions outside create) ---
+// Selector to get filtered promotions
+// This will recalculate every time relevant state (promotions or filters) changes
 export function selectFilteredPromotions(state: PromoState): Promotion[] {
     const { allPromotions, filters } = state;
 
     return allPromotions.filter((promo) => {
-        // Filtro por categoría
+        // Filter by category
         if (filters.categoryId && promo.category.id !== filters.categoryId)
             return false;
 
-        // Filtro por tienda
+        // Filter by store
         if (filters.storeId && promo.store.id !== filters.storeId) return false;
 
-        // Filtro por cercanía
+        // Filter by proximity
         if (
             filters.maxDistanceKm !== null &&
             filters.userLatitude !== null &&
             filters.userLongitude !== null &&
-            promo.store.latitude !== undefined && // Asegurarse que la tienda tiene lat/lon
+            promo.store.latitude !== undefined && // Ensure store has lat/lon
             promo.store.longitude !== undefined
         ) {
             const distance = getDistanceKm(
@@ -190,10 +190,11 @@ export function selectFilteredPromotions(state: PromoState): Promotion[] {
             if (distance > filters.maxDistanceKm) return false;
         }
 
-        // Si pasa todos los filtros, se incluye
+        // If it passes all filters, include it
         return true;
     });
 }
 
-// Puedes añadir más selectores si los necesitas, por ejemplo, para obtener
-// solo las categorías o tiendas que tienen promociones activas.
+// You can add more selectors if needed, for example, to get
+// only the categories or stores that have active promotions.
+

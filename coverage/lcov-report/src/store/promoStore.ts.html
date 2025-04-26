@@ -262,7 +262,8 @@
 <a name='L197'></a><a href='#L197'>197</a>
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
-<a name='L200'></a><a href='#L200'>200</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -461,20 +462,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { create } from "zustand";
 import { Promotion, Category, Store } from "../types";
 import { fetchPromotions, fetchCategories, fetchStores } from "../services/api";
 &nbsp;
-// --- Tipos para los Filtros ---
+// --- Types for Filters ---
 export interface Filters {
-    categoryId: string | null; // null o '' significa sin filtro
+    categoryId: string | null; // null or '' means no filter
     storeId: string | null;
-    maxDistanceKm: number | null; // null significa sin filtro de distancia
-    userLatitude: number | null; // Latitud simulada del usuario
-    userLongitude: number | null; // Longitud simulada del usuario
+    maxDistanceKm: number | null; // null means no distance filter
+    userLatitude: number | null; // Simulated user latitude
+    userLongitude: number | null; // Simulated user longitude
 }
 &nbsp;
-// --- Interfaz del Estado ---
+// --- State Interface ---
 export interface PromoState {
     allPromotions: Promotion[];
     categories: Category[];
@@ -482,27 +484,27 @@ export interface PromoState {
     filters: Filters;
     loadingStatus: "idle" | "loading" | "succeeded" | "failed";
     error: string | null;
-    specialPromotionNotification: Promotion | null; // Para la notificación
+    specialPromotionNotification: Promotion | null; // For notification
 }
 &nbsp;
-// --- Interfaz de las Acciones ---
+// --- Actions Interface ---
 interface PromoActions {
     fetchInitialData: () =&gt; Promise&lt;void&gt;;
     setCategoryFilter: (categoryId: string | null) =&gt; void;
     setStoreFilter: (storeId: string | null) =&gt; void;
-    // Simularemos la ubicación del usuario y un radio
+    // We will simulate user location and a radius
     setProximityFilter: (
         userLat: number,
         userLon: number,
         maxDistance: number | null
     ) =&gt; void;
     clearFilters: () =&gt; void;
-    // Simulación de evento externo (WebSocket/Reverb)
+    // Simulation of external event (WebSocket/Reverb)
     triggerSpecialPromotion: (promotion: Promotion) =&gt; void;
     clearSpecialPromotionNotification: () =&gt; void;
 }
 &nbsp;
-// --- Estado Inicial ---
+// --- Initial State ---
 export const _initialState: PromoState = {
     allPromotions: [],
     categories: [],
@@ -511,7 +513,7 @@ export const _initialState: PromoState = {
         categoryId: null,
         storeId: null,
         maxDistanceKm: null,
-        userLatitude: 40.4168, // Ubicación por defecto: Madrid Centro (simulada)
+        userLatitude: 40.4168, // Default location: Madrid Center (simulated)
         userLongitude: -3.7038
     },
     loadingStatus: "idle",
@@ -520,17 +522,17 @@ export const _initialState: PromoState = {
 };
 export const initialState = _initialState;
 &nbsp;
-// --- Helper para Calcular Distancia (Fórmula Haversine simplificada) ---
-// Devuelve distancia en KM
+// --- Helper to Calculate Distance (Simplified Haversine Formula) ---
+// Returns distance in KM
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function getDistanceKm(</span></span>
 <span class="cstat-no" title="statement not covered" >    lat1: number,</span>
 <span class="cstat-no" title="statement not covered" >    lon1: number,</span>
 <span class="cstat-no" title="statement not covered" >    lat2: number,</span>
 <span class="cstat-no" title="statement not covered" >    lon2: number</span>
 <span class="cstat-no" title="statement not covered" >): number {</span>
-<span class="cstat-no" title="statement not covered" >    if (!lat1 || !lon1 || !lat2 || !lon2) return Infinity; // No se puede calcular</span>
+<span class="cstat-no" title="statement not covered" >    if (!lat1 || !lon1 || !lat2 || !lon2) return Infinity; // Cannot calculate</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const R = 6371; // Radio de la Tierra en km</span>
+<span class="cstat-no" title="statement not covered" >    const R = 6371; // Earth radius in km</span>
 <span class="cstat-no" title="statement not covered" >    const dLat = deg2rad(lat2 - lat1);</span>
 <span class="cstat-no" title="statement not covered" >    const dLon = deg2rad(lon2 - lon1);</span>
 <span class="cstat-no" title="statement not covered" >    const a =</span>
@@ -540,7 +542,7 @@ export const initialState = _initialState;
 <span class="cstat-no" title="statement not covered" >            Math.sin(dLon / 2) *</span>
 <span class="cstat-no" title="statement not covered" >            Math.sin(dLon / 2);</span>
 <span class="cstat-no" title="statement not covered" >    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</span>
-<span class="cstat-no" title="statement not covered" >    const d = R * c; // Distancia en km</span>
+<span class="cstat-no" title="statement not covered" >    const d = R * c; // Distance in km</span>
 <span class="cstat-no" title="statement not covered" >    return d;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
@@ -548,16 +550,16 @@ export const initialState = _initialState;
 <span class="cstat-no" title="statement not covered" >    return deg * (Math.PI / 180);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
-// --- Creación del Store ---
+// --- Store Creation ---
 export const usePromoStore = create&lt;PromoState &amp; PromoActions&gt;((set, get) =&gt; ({
     ..._initialState,
 &nbsp;
-    // --- Acciones ---
+    // --- Actions ---
     fetchInitialData: async () =&gt; {
-        if (get().loadingStatus === "loading") <span class="branch-0 cbranch-no" title="branch not covered" >return; </span>// Evitar llamadas concurrentes
+        if (get().loadingStatus === "loading") <span class="branch-0 cbranch-no" title="branch not covered" >return; </span>// Avoid concurrent calls
         set({ loadingStatus: "loading", error: null });
         try {
-            // Ejecutar llamadas en paralelo para eficiencia
+            // Run calls in parallel for efficiency
             const [promotions, categories, stores] = await Promise.all([
                 fetchPromotions(),
                 fetchCategories(),
@@ -573,7 +575,7 @@ export const usePromoStore = create&lt;PromoState &amp; PromoActions&gt;((set, g
             console.error("Failed to fetch initial data:", err);
             set({
                 loadingStatus: "failed",
-                error: "No se pudieron cargar los datos iniciales."
+                error: "No se pudieron cargar los datos iniciales.",
             });
         }
     },
@@ -608,7 +610,7 @@ export const usePromoStore = create&lt;PromoState &amp; PromoActions&gt;((set, g
     },
 &nbsp;
     triggerSpecialPromotion: (promotion) =&gt; {
-        // Solo activar si es realmente especial y no está ya notificada
+        // Only trigger if it is really special and not already notified
         if (
             promotion.isSpecial &amp;&amp;
             get().specialPromotionNotification<span class="branch-0 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d </span>!== promotion.id
@@ -622,26 +624,26 @@ export const usePromoStore = create&lt;PromoState &amp; PromoActions&gt;((set, g
     }
 }));
 &nbsp;
-// --- Selectores (Funciones fuera del create) ---
-// Selector para obtener las promociones filtradas
-// Esto se recalculará cada vez que cambie el estado relevante (promotions o filters)
+// --- Selectors (Functions outside create) ---
+// Selector to get filtered promotions
+// This will recalculate every time relevant state (promotions or filters) changes
 export function selectFilteredPromotions(state: PromoState): Promotion[] {
     const { allPromotions, filters } = state;
 &nbsp;
     return allPromotions.filter((promo) =&gt; {
-        // Filtro por categoría
+        // Filter by category
         if (filters.categoryId &amp;&amp; promo.category.id !== filters.categoryId)
             return false;
 &nbsp;
-        // Filtro por tienda
+        // Filter by store
         if (filters.storeId &amp;&amp; promo.store.id !== filters.storeId) return false;
 &nbsp;
-        // Filtro por cercanía
+        // Filter by proximity
         if (
             filters.maxDistanceKm !== null<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp;</span>
             filters.userLatitude !== null<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp;</span>
             filters.userLongitude !== null<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp;</span>
-            promo.store.latitude !== undefined<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp; // Asegurarse que la tienda tiene lat/lon</span>
+            promo.store.latitude !== undefined<span class="branch-0 cbranch-no" title="branch not covered" > &amp;&amp; // Ensure store has lat/lon</span>
 <span class="cstat-no" title="statement not covered" >            promo.store.longitude !== undefined</span>
         ) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >            const distance = getDistanceKm(</span>
@@ -653,13 +655,14 @@ export function selectFilteredPromotions(state: PromoState): Promotion[] {
 <span class="cstat-no" title="statement not covered" >            if (distance &gt; filters.maxDistanceKm) return false;</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
 &nbsp;
-        // Si pasa todos los filtros, se incluye
+        // If it passes all filters, include it
         return true;
     });
 }
 &nbsp;
-// Puedes añadir más selectores si los necesitas, por ejemplo, para obtener
-// solo las categorías o tiendas que tienen promociones activas.
+// You can add more selectors if needed, for example, to get
+// only the categories or stores that have active promotions.
+&nbsp;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -667,7 +670,7 @@ export function selectFilteredPromotions(state: PromoState): Promotion[] {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-26T04:32:40.614Z
+                at 2025-04-26T17:22:42.380Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

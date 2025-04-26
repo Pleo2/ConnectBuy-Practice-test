@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.72% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/61</span>
+                <span class='fraction'>54/56</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.72% </span>
+                <span class="strong">96.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/61</span>
+                <span class='fraction'>54/56</span>
             </div>
         
             
@@ -119,14 +119,7 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -135,8 +128,6 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -144,7 +135,6 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -155,13 +145,15 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -183,68 +175,61 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
-import React from 'react'
-import { usePromoStore } from '../store/promoStore'
-import Snackbar from '@mui/material/Snackbar'
-import Alert, { AlertProps } from '@mui/material/Alert'
-import Slide, { SlideProps } from '@mui/material/Slide'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { usePromoStore } from "../store/promoStore";
+import Snackbar from "@mui/material/Snackbar";
+import Alert, { AlertProps } from "@mui/material/Alert";
+import Slide, { SlideProps } from "@mui/material/Slide";
+import { forwardRef } from "react";
 &nbsp;
-// --- Helper para la transición Slide ---
 function SlideTransition(props: SlideProps) {
-  return &lt;Slide {...props} direction="up" /&gt;
+    return &lt;Slide {...props} direction="up" /&gt;;
 }
 &nbsp;
-// --- Componente Forwarded para Alert (necesario para Snackbar) ---
-// Ver: https://mui.com/material-ui/react-snackbar/#customization
-const SnackbarAlert = React.forwardRef&lt;HTMLDivElement, AlertProps&gt;(
-  function SnackbarAlert(props, ref) {
-    return &lt;Alert elevation={6} ref={ref} variant="filled" {...props} /&gt;
-  }
-)
+const SnackbarAlert = forwardRef&lt;HTMLDivElement, AlertProps&gt;(
+    function SnackbarAlert(props, ref) {
+        return &lt;Alert elevation={6} ref={ref} variant="filled" {...props} /&gt;;
+    }
+);
 &nbsp;
-// --- Componente Principal de Notificación ---
 export function NotificationAlert() {
-  // Obtener la notificación actual y la acción para limpiarla
-  const notification = usePromoStore((state) =&gt; state.specialPromotionNotification)
-  const clearNotification = usePromoStore((state) =&gt; state.clearSpecialPromotionNotification)
+    const notification = usePromoStore(
+        (state) =&gt; state.specialPromotionNotification
+    );
+    const clearNotification = usePromoStore(
+        (state) =&gt; state.clearSpecialPromotionNotification
+    );
 &nbsp;
-  // Determinar si el Snackbar debe estar abierto
-  const isOpen = notification !== null
+    const isOpen = notification !== null;
 &nbsp;
-  // Manejador para cerrar el Snackbar
-  function handleClose(event?: React.SyntheticEvent | Event, reason?: string) {
-    // Evitar cerrar si se hace clic fuera del snackbar
-    if (reason === 'clickaway') <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      return</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-    // Llamar a la acción del store para limpiar la notificación
-    clearNotification()
-  }
+    function handleClose(
+        event?: React.SyntheticEvent | Event,
+        reason?: string
+    ) {
+        if (reason === "clickaway") <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+        clearNotification();
+    }
 &nbsp;
-  return (
-    &lt;Snackbar
-      open={isOpen}
-      autoHideDuration={6000} // Ocultar automáticamente después de 6 segundos
-      onClose={handleClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} // Posición
-      TransitionComponent={SlideTransition} // Añadir animación
-    &gt;
-      {/* Usamos el componente Alert dentro del Snackbar */}
-      {/* El 'key' ayuda a React a reiniciar la animación si cambia la promo */}
-      &lt;SnackbarAlert
-          key={notification?.id} // Añadir key si cambias el contenido dinámicamente
-          onClose={handleClose}
-          severity="info" // Tipo de alerta (info, warning, error, success)
-          sx={{ width: '100%' }}
-      &gt;
-        {/* Contenido de la notificación */}
-        &lt;strong&gt;¡Oferta Especial!&lt;/strong&gt; {notification?.title} - {notification?.description}
-      &lt;/SnackbarAlert&gt;
-    &lt;/Snackbar&gt;
-  )
+    return (
+        &lt;Snackbar
+            open={isOpen}
+            autoHideDuration={6000} // Automatically hide after 6 seconds
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            TransitionComponent={SlideTransition}
+        &gt;
+            &lt;SnackbarAlert
+                key={notification?.id}
+                onClose={handleClose}
+                severity="info"
+                sx={{ width: "100%" }}
+            &gt;
+                &lt;strong&gt;¡Oferta Especial!&lt;/strong&gt; {notification?.title} -{" "}
+                {notification?.description}
+            &lt;/SnackbarAlert&gt;
+        &lt;/Snackbar&gt;
+    );
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -253,7 +238,7 @@ export function NotificationAlert() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-26T04:32:40.614Z
+                at 2025-04-26T17:22:42.380Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

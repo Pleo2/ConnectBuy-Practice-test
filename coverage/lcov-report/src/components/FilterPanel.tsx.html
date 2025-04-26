@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>159/159</span>
+                <span class='fraction'>144/144</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>159/159</span>
+                <span class='fraction'>144/144</span>
             </div>
         
             
@@ -207,22 +207,7 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a>
-<a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -234,14 +219,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -264,9 +241,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -278,7 +252,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -311,7 +284,6 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
@@ -336,8 +308,6 @@
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -393,9 +363,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 &nbsp;
-// --- Componente Principal ---
 export function FilterPanel() {
-    // Obtener datos y acciones del store de Zustand
     const categories = usePromoStore((state) =&gt; state.categories);
     const stores = usePromoStore((state) =&gt; state.stores);
     const filters = usePromoStore((state) =&gt; state.filters);
@@ -405,12 +373,6 @@ export function FilterPanel() {
         (state) =&gt; state.setProximityFilter
     );
     const clearFilters = usePromoStore((state) =&gt; state.clearFilters);
-&nbsp;
-    // --- ELIMINADOS ---
-    // const [distanceInput, setDistanceInput] = useState&lt;string&gt;(...)
-    // useEffect(() =&gt; { ... }, [filters.maxDistanceKm])
-&nbsp;
-    // --- Manejadores de Eventos ---
 &nbsp;
     function handleCategoryChange(event: SelectChangeEvent&lt;string | null&gt;) {
         const value = event.target.value;
@@ -422,23 +384,19 @@ export function FilterPanel() {
         setStoreFilter(value === "" ? null : value);
     }
 &nbsp;
-    // Modificado: Solo llama a la acción del store
     function handleDistanceChange(event: React.ChangeEvent&lt;HTMLInputElement&gt;) {
         const value = event.target.value;
         const distanceNum = parseInt(value, 10);
 &nbsp;
-        // Actualiza el store directamente. Si el input está vacío o no es numérico &gt; 0, pasa null.
         setProximityFilter(
             filters.userLatitude!,
             filters.userLongitude!,
             !isNaN(distanceNum) &amp;&amp; distanceNum &gt; 0 ? distanceNum : null
         );
-        // Ya no hay setDistanceInput
     }
 &nbsp;
     function handleClearFilters() {
         clearFilters();
-        // Ya no hay estado local que limpiar
     }
 &nbsp;
     return (
@@ -455,7 +413,6 @@ export function FilterPanel() {
                 Filtrar Promociones
             &lt;/Typography&gt;
             &lt;Stack spacing={2}&gt;
-                {/* Filtro de Categoría (sin cambios) */}
                 &lt;FormControl fullWidth size="small"&gt;
                     &lt;InputLabel id="category-filter-label"&gt;
                         Categoría
@@ -478,7 +435,7 @@ export function FilterPanel() {
                     &lt;/Select&gt;
                 &lt;/FormControl&gt;
 &nbsp;
-                {/* Filtro de Tienda (sin cambios) */}
+                {/* Store Filter (unchanged) */}
                 &lt;FormControl fullWidth size="small"&gt;
                     &lt;InputLabel id="store-filter-label"&gt;Tienda&lt;/InputLabel&gt;
                     &lt;Select
@@ -499,15 +456,14 @@ export function FilterPanel() {
                     &lt;/Select&gt;
                 &lt;/FormControl&gt;
 &nbsp;
-                {/* Filtro de Cercanía - Modificado */}
                 &lt;TextField
                     fullWidth
                     size="small"
                     label="Distancia Máxima (km)"
                     type="number"
-                    // ¡Cambio Clave! Vincular value directamente al store
+                    // Key Change! Bind value directly to the store
                     value={filters.maxDistanceKm?.toString() ?? ""}
-                    onChange={handleDistanceChange} // El handler solo actualiza el store
+                    onChange={handleDistanceChange}
                     InputProps={{
                         inputProps: {
                             min: 0
@@ -522,7 +478,6 @@ export function FilterPanel() {
                     }
                 /&gt;
 &nbsp;
-                {/* Botón Limpiar Filtros (sin cambios en el botón mismo) */}
                 &lt;Button
                     variant="outlined"
                     color="secondary"
@@ -547,7 +502,7 @@ export function FilterPanel() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-04-26T04:32:40.614Z
+                at 2025-04-26T17:22:42.380Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
